@@ -1,7 +1,8 @@
 import { GAME_HEIGHT, GAME_WIDTH } from "../constants/Dimensions";
+import { Board } from "../types/Board";
 
 export const createBoard = () => {
-  const rows: number[][] = [];
+  const rows: Board = [];
 
   for (let i = 0; i < GAME_HEIGHT; i++) {
     rows.push([]);

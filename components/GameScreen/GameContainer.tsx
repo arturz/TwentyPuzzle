@@ -1,23 +1,11 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {Board} from '../../types/Board';
+import {createBoard} from '../../utils/createBoard';
 
-const GAME_WIDTH = 4;
-const GAME_HEIGHT = 5;
+export const GameContainer = () => {
+  const [board, setBoard] = useState<Board | null>(null);
 
-const createBoard = () => {
-  const rows: number[][] = [];
-
-  for (let i = 0; i < GAME_HEIGHT; i++) {
-    rows.push([]);
-    for (let j = 0; j < GAME_WIDTH; j++) {
-      const cell = i * GAME_HEIGHT + j;
-
-      if (cell === GAME_WIDTH * GAME_HEIGHT - 1) {
-        rows[i].push(-1);
-      }
-
-      rows[i].push(cell);
-    }
-  }
+  useEffect(() => {
+    setBoard(createBoard());
+  }, []);
 };
-
-export const GameContainer = () => {};

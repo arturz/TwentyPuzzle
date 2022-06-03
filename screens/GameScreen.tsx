@@ -2,8 +2,8 @@ import styled, {css} from '@emotion/native';
 import {Text} from '@react-native-material/core';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React from 'react';
-import {RootStackParamList} from '../App';
 import {ScreenName} from '../constants/ScreenName';
+import {RootStackParamList} from '../types/RootStackParamList';
 
 const Container = styled.View`
   flex: 1;

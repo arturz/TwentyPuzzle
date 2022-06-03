@@ -5,12 +5,7 @@ import {HomeScreen} from './screens/HomeScreen';
 import {GameScreen} from './screens/GameScreen';
 import {HighScoreScreen} from './screens/HighScoreScreen';
 import {ScreenName} from './constants/ScreenName';
-
-export type RootStackParamList = {
-  [ScreenName.Home]: undefined;
-  [ScreenName.Game]: undefined;
-  [ScreenName.HighScore]: undefined;
-};
+import {RootStackParamList} from './types/RootStackParamList';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
