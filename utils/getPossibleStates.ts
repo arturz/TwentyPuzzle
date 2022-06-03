@@ -1,4 +1,3 @@
-import { EmptyCell } from "../constants/EmptyCell";
 import { Board } from "../types/Board";
 import { getEmptyCellCoords } from "./getEmptyCellCoords";
 import { moveDown } from "./moveDown";

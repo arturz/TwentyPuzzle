@@ -1,11 +1,11 @@
 import { EmptyCell } from "../constants/EmptyCell";
+import { deepCopy } from "../lib/deepCopy";
 import { Board } from "../types/Board";
-import { deepCopy } from "./deepCopy";
 
 export const moveLeft = (board: Board) => {
   return board.map((row) => {
     const index = row.findIndex(cell => cell === EmptyCell);
-    if (index === -1 || index === 0) {
+    if (index === EmptyCell || index === 0) {
       return row;
     }
 

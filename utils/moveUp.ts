@@ -1,6 +1,6 @@
 import { EmptyCell } from "../constants/EmptyCell";
+import { deepCopy } from "../lib/deepCopy";
 import { Board } from "../types/Board";
-import { deepCopy } from "./deepCopy";
 
 export const moveUp = (board: Board) => {
   const newBoard = deepCopy<Board>(board);
