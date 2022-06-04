@@ -3,6 +3,9 @@ import {FlatList, View} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {getScores} from '../../utils/scores/getScores';
 import {formatScoreText} from '../../utils/scores/formatScoreText';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+Icon.loadFont();
 
 export const HighScoreScreenComponent = () => {
   const [scores, setScores] = useState<number[] | null>(null);
@@ -15,6 +18,26 @@ export const HighScoreScreenComponent = () => {
     fetchScores();
   }, []);
 
+  const renderItem = useCallback(
+    ({item, index}: {item: number; index: number}) => {
+      const trophyColor =
+        {
+          [0]: 'gold',
+          [1]: 'silver',
+          [2]: 'brown',
+        }[index] ?? '#222';
+
+      return (
+        <ListItem
+          leading={<Text>{index + 1}.</Text>}
+          title={`${formatScoreText(item)}`}
+          trailing={<Icon name="trophy" size={25} color={trophyColor} />}
+        />
+      );
+    },
+    [],
+  );
+
   if (scores === null) {
     return null;
   }
@@ -25,9 +48,7 @@ export const HighScoreScreenComponent = () => {
         <Text>No scores</Text>
       ) : (
         <FlatList
-          renderItem={({item, index}) => (
-            <ListItem title={`${index + 1}. ${formatScoreText(item)}`} />
-          )}
+          renderItem={renderItem}
           data={scores}
           keyExtractor={(score, index) => index.toString()}
         />
