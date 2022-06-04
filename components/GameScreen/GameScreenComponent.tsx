@@ -1,11 +1,14 @@
 import styled from '@emotion/native';
 import React, {FC, useCallback, useEffect, useRef, useState} from 'react';
 import {Board} from '../../types/Board';
+import {checkForGoal} from '../../utils/checkForGoal';
 import {createBoard} from '../../utils/createBoard';
 import {moveDown} from '../../utils/moveDown';
 import {moveLeft} from '../../utils/moveLeft';
 import {moveRight} from '../../utils/moveRight';
 import {moveUp} from '../../utils/moveUp';
+import {addNewScore} from '../../utils/scores/addNewScore';
+import {shuffleBoard} from '../../utils/shuffleBoard';
 import {BoardComponentContainer} from './BoardComponentContainer';
 import {Clock} from './Clock';
 import {Controls} from './Controls';
@@ -33,7 +36,7 @@ export const GameScreenComponent: FC<GameScreenComponentProps> = ({
   }, []);
 
   const newGame = useCallback(() => {
-    setBoard(createBoard());
+    setBoard(shuffleBoard(createBoard()));
 
     setTime(0);
 
@@ -77,6 +80,13 @@ export const GameScreenComponent: FC<GameScreenComponentProps> = ({
   const handleSolve = useCallback(() => {
     if (board !== null) {
       console.log('start solving');
+    }
+  }, [board]);
+
+  useEffect(() => {
+    if (board && checkForGoal(board)) {
+      console.log('Goal', time);
+      addNewScore(time);
     }
   }, [board]);
 
