@@ -41,7 +41,7 @@ export const BoardComponent: FC<BoardComponentProps> = ({board}) => {
         return row.map((cell, x) => {
           return (
             <BoardCell
-              key={`${y}${x}`}
+              key={cell}
               cell={cell}
               x={cellSize * x}
               y={cellSize * y}

@@ -7,7 +7,7 @@ export const moveDown = (board: Board) => {
 
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[j].length; j++) {
-      if (!board[j].includes(EmptyCell) || i === board.length - 1) {
+      if (board[i][j] !== EmptyCell || i === board.length - 1) {
         continue;
       }
 
