@@ -1,5 +1,5 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { HIGH_SCORES_KEY } from "../../constants/Storage"
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {HIGH_SCORES_KEY} from '../../constants/Storage';
 
 export const getScores = async () => {
   try {
@@ -11,4 +11,4 @@ export const getScores = async () => {
   } catch (error) {
     throw error;
   }
-}
+};

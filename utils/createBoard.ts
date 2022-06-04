@@ -1,6 +1,6 @@
-import { GAME_HEIGHT, GAME_WIDTH } from "../constants/Dimensions";
-import { EmptyCell } from "../constants/EmptyCell";
-import { Board } from "../types/Board";
+import {GAME_HEIGHT, GAME_WIDTH} from '../constants/Dimensions';
+import {EmptyCell} from '../constants/EmptyCell';
+import {Board} from '../types/Board';
 
 export const createBoard = () => {
   const rows: Board = [];

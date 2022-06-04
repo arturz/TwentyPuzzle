@@ -47,31 +47,31 @@ export const GameScreenComponent: FC<GameScreenComponentProps> = ({
     clockRef.current = setInterval(incrementTime, 1000);
   }, [incrementTime]);
 
-  useEffect(newGame, []);
+  useEffect(newGame, [newGame]);
 
   const handleSwipeUp = useCallback(() => {
-    if (board !== null) {
+    if (board !== null && !checkForGoal(board)) {
       console.log('up');
       setBoard(moveDown(board));
     }
   }, [board]);
 
   const handleSwipeDown = useCallback(() => {
-    if (board !== null) {
+    if (board !== null && !checkForGoal(board)) {
       console.log('down');
       setBoard(moveUp(board));
     }
   }, [board]);
 
   const handleSwipeLeft = useCallback(() => {
-    if (board !== null) {
+    if (board !== null && !checkForGoal(board)) {
       console.log('left');
       setBoard(moveRight(board));
     }
   }, [board]);
 
   const handleSwipeRight = useCallback(() => {
-    if (board !== null) {
+    if (board !== null && !checkForGoal(board)) {
       console.log('right');
       setBoard(moveLeft(board));
     }
@@ -85,10 +85,13 @@ export const GameScreenComponent: FC<GameScreenComponentProps> = ({
 
   useEffect(() => {
     if (board && checkForGoal(board)) {
-      console.log('Goal', time);
+      console.log('Goal');
       addNewScore(time);
+      if (clockRef.current !== null) {
+        clearInterval(clockRef.current);
+      }
     }
-  }, [board]);
+  }, [board, time]);
 
   if (board === null) {
     return null;
