@@ -1,14 +1,16 @@
-import {Text} from '@react-native-material/core';
-import {View} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {ListItem, Text} from '@react-native-material/core';
+import {FlatList, View} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
 import {getScores} from '../../utils/scores/getScores';
+import {formatScoreText} from '../../utils/scores/formatScoreText';
 
 export const HighScoreScreenComponent = () => {
   const [scores, setScores] = useState<number[] | null>(null);
 
   useEffect(() => {
     async function fetchScores() {
-      setScores(await getScores());
+      const newScores = await getScores();
+      setScores([...newScores].sort((a, b) => a - b));
     }
     fetchScores();
   }, []);
@@ -19,7 +21,17 @@ export const HighScoreScreenComponent = () => {
 
   return (
     <View>
-      <Text>High scores :)</Text>
+      {scores.length === 0 ? (
+        <Text>No scores</Text>
+      ) : (
+        <FlatList
+          renderItem={({item, index}) => (
+            <ListItem title={`${index + 1}. ${formatScoreText(item)}`} />
+          )}
+          data={scores}
+          keyExtractor={(score, index) => index.toString()}
+        />
+      )}
     </View>
   );
 };
