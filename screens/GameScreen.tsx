@@ -2,14 +2,17 @@ import styled, {css} from '@emotion/native';
 import {Text} from '@react-native-material/core';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React from 'react';
+import {BoardComponentContainer} from '../components/GameScreen/BoardComponentContainer';
+import {Clock} from '../components/GameScreen/Clock';
+import {Controls} from '../components/GameScreen/Controls';
 import {ScreenName} from '../constants/ScreenName';
 import {RootStackParamList} from '../types/RootStackParamList';
 
 const Container = styled.View`
   flex: 1;
   align-items: center;
-  justify-content: center;
-  padding-bottom: 30px;
+  justify-content: space-between;
+  padding: 10px;
 `;
 
 export function GameScreen({
@@ -17,7 +20,9 @@ export function GameScreen({
 }: NativeStackScreenProps<RootStackParamList, ScreenName.Game>) {
   return (
     <Container>
-      <Text variant="h3">Game</Text>
+      <Clock />
+      <BoardComponentContainer />
+      <Controls />
     </Container>
   );
 }
