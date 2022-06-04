@@ -9,7 +9,6 @@ import {BoardCell} from './BoardComponent/BoardCell';
 
 const Container = styled.View`
   flex: 1;
-  background-color: red;
   width: 100%;
   height: 100%;
   margin-bottom: 10px;
@@ -27,7 +26,9 @@ export const BoardComponent: FC<BoardComponentProps> = ({board}) => {
   const cellSize =
     size === null
       ? 0
-      : Math.min(size.width / GAME_WIDTH, size.height / GAME_HEIGHT);
+      : Math.floor(
+          Math.min(size.width / GAME_WIDTH, size.height / GAME_HEIGHT),
+        );
 
   return (
     <Container
@@ -35,8 +36,13 @@ export const BoardComponent: FC<BoardComponentProps> = ({board}) => {
       onLayout={() => {
         containerRef.current?.measure((x, y, width, height, pageX, pageY) => {
           setSize({width, height});
+          console.log({width, height});
         });
-      }}>
+      }}
+      {...(size !== null &&
+        (size.height > size.width
+          ? {marginTop: (size.height - GAME_HEIGHT * cellSize) / 2}
+          : {marginLeft: (size.width - GAME_WIDTH * cellSize) / 2}))}>
       {board.map((row, y) => {
         return row.map((cell, x) => {
           return (
@@ -52,14 +58,4 @@ export const BoardComponent: FC<BoardComponentProps> = ({board}) => {
       })}
     </Container>
   );
-
-  // return (
-  //   <>
-  //     {board.map(row => {
-  //       return row.map(cell => {
-  //         return <BoardCell key={cell} n={cell} />;
-  //       });
-  //     })}
-  //   </>
-  // );
 };

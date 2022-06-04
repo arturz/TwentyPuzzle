@@ -1,6 +1,6 @@
 import styled from '@emotion/native';
 import {Button} from '@react-native-material/core';
-import React from 'react';
+import React, {FC} from 'react';
 
 const Container = styled.View`
   display: flex;
@@ -9,12 +9,22 @@ const Container = styled.View`
   width: 100%;
 `;
 
-export const Controls = () => {
+type ControlProps = {
+  onNewGame: () => void;
+  onSolve: () => void;
+  onGoToHighScore: () => void;
+};
+
+export const Controls: FC<ControlProps> = ({
+  onNewGame,
+  onSolve,
+  onGoToHighScore,
+}) => {
   return (
     <Container>
-      <Button title="New"></Button>
-      <Button title="Solve"></Button>
-      <Button title="Scores"></Button>
+      <Button title="New" onPress={onNewGame}></Button>
+      <Button title="Solve" onPress={onSolve}></Button>
+      <Button title="Scores" onPress={onGoToHighScore}></Button>
     </Container>
   );
 };
