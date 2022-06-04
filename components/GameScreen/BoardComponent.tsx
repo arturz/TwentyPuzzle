@@ -1,6 +1,6 @@
 import styled from '@emotion/native';
 import {Text} from '@react-native-material/core';
-import React, {FC, useRef, useState} from 'react';
+import React, {FC, useEffect, useRef, useState} from 'react';
 import {View} from 'react-native';
 import {GAME_HEIGHT, GAME_WIDTH} from '../../constants/Dimensions';
 import {Board} from '../../types/Board';
@@ -43,7 +43,7 @@ export const BoardComponent: FC<BoardComponentProps> = ({board}) => {
         (size.height > size.width
           ? {marginTop: (size.height - GAME_HEIGHT * cellSize) / 2}
           : {marginLeft: (size.width - GAME_WIDTH * cellSize) / 2}))}>
-      {board.map((row, y) => {
+      {board.flatMap((row, y) => {
         return row.map((cell, x) => {
           return (
             <BoardCell

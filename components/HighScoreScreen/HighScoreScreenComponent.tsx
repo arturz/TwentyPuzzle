@@ -25,7 +25,7 @@ export const HighScoreScreenComponent = () => {
           [0]: 'gold',
           [1]: 'silver',
           [2]: 'brown',
-        }[index] ?? '#222';
+        }[index] ?? 'gray';
 
       return (
         <ListItem
