@@ -1,5 +1,5 @@
 import styled from '@emotion/native';
-import React, {FC, useCallback, useEffect, useState} from 'react';
+import React, {FC, useCallback, useEffect, useRef, useState} from 'react';
 import {Board} from '../../types/Board';
 import {createBoard} from '../../utils/createBoard';
 import {moveDown} from '../../utils/moveDown';
@@ -25,10 +25,25 @@ export const GameScreenComponent: FC<GameScreenComponentProps> = ({
   onGoToHighScore,
 }) => {
   const [board, setBoard] = useState<Board | null>(null);
+  const [time, setTime] = useState<number>(0);
+  const clockRef = useRef<NodeJS.Timer | null>(null);
+
+  const incrementTime = useCallback(() => {
+    setTime(oldTime => oldTime + 1);
+  }, []);
 
   const newGame = useCallback(() => {
     setBoard(createBoard());
-  }, []);
+
+    setTime(0);
+
+    if (clockRef.current !== null) {
+      clearInterval(clockRef.current);
+    }
+
+    clockRef.current = setInterval(incrementTime, 1000);
+  }, [incrementTime]);
+
   useEffect(newGame, []);
 
   const handleSwipeUp = useCallback(() => {
@@ -71,7 +86,7 @@ export const GameScreenComponent: FC<GameScreenComponentProps> = ({
 
   return (
     <Container>
-      <Clock />
+      <Clock time={time} />
       <BoardComponentContainer
         board={board}
         onSwipeUp={handleSwipeUp}
