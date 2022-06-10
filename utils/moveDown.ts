@@ -1,22 +1,19 @@
-import { EmptyCell } from "../constants/EmptyCell";
-import { deepCopy } from "../lib/deepCopy";
-import { Board } from "../types/Board";
+import {EmptyCell} from '../constants/EmptyCell';
+import {Board} from '../types/Board';
 
 export const moveDown = (board: Board) => {
-  const newBoard = deepCopy<Board>(board);
-
-  for (let i = 0; i < board.length; i++) {
-    for (let j = 0; j < board[j].length; j++) {
-      if (board[i][j] !== EmptyCell || i === board.length - 1) {
+  for (let i = 0; i < board.size; i++) {
+    for (let j = 0; j < board.get(i).size; j++) {
+      if (board.getIn([i, j]) !== EmptyCell || i === board.size - 1) {
         continue;
       }
 
-      const temp = newBoard[i + 1][j];
-      newBoard[i + 1][j] = newBoard[i][j];
-      newBoard[i][j] = temp;
-      return newBoard;
+      const temp = board.getIn([i + 1, j]);
+      board = board.setIn([i + 1, j], board.getIn([i, j]));
+      board = board.setIn([i, j], temp);
+      return board;
     }
   }
 
-  return newBoard;
-}
+  return board;
+};

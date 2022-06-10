@@ -4,11 +4,15 @@ import {Board} from '../types/Board';
 import {getCoordinatesFromCell} from '../utils/getCoordinatesFromCell';
 import {manhattan} from './manhattan';
 
-export const heurestic = (board: Board) => {
+export const heuristic = (
+  board: Board,
+  width = GAME_WIDTH,
+  height = GAME_HEIGHT,
+) => {
   return board.flat().reduce((acc, cell, index) => {
     const goalCoordinates = getCoordinatesFromCell(index);
     const coordinates = getCoordinatesFromCell(
-      cell === EmptyCell ? GAME_WIDTH * GAME_HEIGHT - 1 : cell,
+      cell === EmptyCell ? width * height - 1 : cell,
     );
 
     return acc + manhattan(goalCoordinates, coordinates);
