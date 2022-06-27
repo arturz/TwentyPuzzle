@@ -1,4 +1,4 @@
-import { ScreenName } from "../constants/ScreenName";
+import {ScreenName} from '../constants/ScreenName';
 
 export type RootStackParamList = {
   [ScreenName.Home]: undefined;

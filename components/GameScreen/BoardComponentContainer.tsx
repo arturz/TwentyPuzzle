@@ -1,10 +1,6 @@
-import React, {FC, useCallback, useEffect, useState} from 'react';
+import React, {FC} from 'react';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import {Board} from '../../types/Board';
-import {moveDown} from '../../utils/moveDown';
-import {moveLeft} from '../../utils/moveLeft';
-import {moveRight} from '../../utils/moveRight';
-import {moveUp} from '../../utils/moveUp';
 import {BoardComponent} from './BoardComponent';
 
 type BoardComponentContainerProps = {

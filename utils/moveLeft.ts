@@ -1,16 +1,20 @@
+import {GAME_WIDTH} from '../constants/Dimensions';
 import {EmptyCell} from '../constants/EmptyCell';
 import {Board} from '../types/Board';
 
 export const moveLeft = (board: Board) => {
-  return board.map(row => {
-    const index = row.findIndex(cell => cell === EmptyCell);
-    if (index === EmptyCell || index === 0) {
-      return row;
-    }
+  const emptyCellIndex = board.findIndex(cell => cell === EmptyCell);
+  const replaceWithIndex = emptyCellIndex + 1;
 
-    const temp = row.get(index - 1);
-    row = row.set(index - 1, row.get(index));
-    row = row.set(index, temp);
-    return row;
-  });
+  if (
+    Math.floor(emptyCellIndex / GAME_WIDTH) ===
+    Math.floor(replaceWithIndex / GAME_WIDTH)
+  ) {
+    const newBoard = [...board];
+    newBoard[emptyCellIndex] = newBoard[replaceWithIndex];
+    newBoard[replaceWithIndex] = EmptyCell;
+    return newBoard;
+  }
+
+  return board;
 };

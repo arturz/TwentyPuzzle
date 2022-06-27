@@ -9,12 +9,14 @@ export const heuristic = (
   width = GAME_WIDTH,
   height = GAME_HEIGHT,
 ) => {
-  return board.flat().reduce((acc, cell, index) => {
-    const goalCoordinates = getCoordinatesFromCell(index);
-    const coordinates = getCoordinatesFromCell(
-      cell === EmptyCell ? width * height - 1 : cell,
-    );
+  return board
+    .flatMap(value => value)
+    .reduce((acc, cell, index) => {
+      const goalCoordinates = getCoordinatesFromCell(index);
+      const coordinates = getCoordinatesFromCell(
+        cell === EmptyCell ? width * height - 1 : cell,
+      );
 
-    return acc + manhattan(goalCoordinates, coordinates);
-  }, 0);
+      return acc + manhattan(goalCoordinates, coordinates);
+    }, 0);
 };

@@ -52,28 +52,28 @@ export const GameScreenComponent: FC<GameScreenComponentProps> = ({
   const handleSwipeUp = useCallback(() => {
     if (board !== null && !checkForGoal(board)) {
       console.log('up');
-      setBoard(moveDown(board));
+      setBoard(moveUp(board));
     }
   }, [board]);
 
   const handleSwipeDown = useCallback(() => {
     if (board !== null && !checkForGoal(board)) {
       console.log('down');
-      setBoard(moveUp(board));
+      setBoard(moveDown(board));
     }
   }, [board]);
 
   const handleSwipeLeft = useCallback(() => {
     if (board !== null && !checkForGoal(board)) {
       console.log('left');
-      setBoard(moveRight(board));
+      setBoard(moveLeft(board));
     }
   }, [board]);
 
   const handleSwipeRight = useCallback(() => {
     if (board !== null && !checkForGoal(board)) {
       console.log('right');
-      setBoard(moveLeft(board));
+      setBoard(moveRight(board));
     }
   }, [board]);
 

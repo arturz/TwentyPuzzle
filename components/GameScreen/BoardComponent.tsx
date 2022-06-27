@@ -1,6 +1,5 @@
 import styled from '@emotion/native';
-import {Text} from '@react-native-material/core';
-import React, {FC, useEffect, useRef, useState} from 'react';
+import React, {FC, useRef, useState} from 'react';
 import {View} from 'react-native';
 import {GAME_HEIGHT, GAME_WIDTH} from '../../constants/Dimensions';
 import {Board} from '../../types/Board';
@@ -34,7 +33,7 @@ export const BoardComponent: FC<BoardComponentProps> = ({board}) => {
     <Container
       ref={containerRef}
       onLayout={() => {
-        containerRef.current?.measure((x, y, width, height, pageX, pageY) => {
+        containerRef.current?.measure((x, y, width, height) => {
           setSize({width, height});
           console.log({width, height});
         });
@@ -43,18 +42,19 @@ export const BoardComponent: FC<BoardComponentProps> = ({board}) => {
         (size.height > size.width
           ? {marginTop: (size.height - GAME_HEIGHT * cellSize) / 2}
           : {marginLeft: (size.width - GAME_WIDTH * cellSize) / 2}))}>
-      {board.flatMap((row, y) => {
-        return row.map((cell, x) => {
-          return (
-            <BoardCell
-              key={cell}
-              cell={cell}
-              x={cellSize * x}
-              y={cellSize * y}
-              size={cellSize}
-            />
-          );
-        });
+      {board.map((cell, index) => {
+        const y = Math.floor(index / GAME_WIDTH);
+        const x = index % (GAME_HEIGHT - 1);
+
+        return (
+          <BoardCell
+            key={cell}
+            cell={cell}
+            x={cellSize * x}
+            y={cellSize * y}
+            size={cellSize}
+          />
+        );
       })}
     </Container>
   );

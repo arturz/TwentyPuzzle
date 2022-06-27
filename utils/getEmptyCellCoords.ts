@@ -1,10 +1,12 @@
+import {GAME_HEIGHT, GAME_WIDTH} from '../constants/Dimensions';
 import {EmptyCell} from '../constants/EmptyCell';
 import {Board} from '../types/Board';
+import {getAt} from './getAt';
 
 export const getEmptyCellCoords = (board: Board) => {
-  for (let y = 0; y < board.size; y++) {
-    for (let x = 0; x < board.get(y).size; x++) {
-      if (board.get(y).get(x) === EmptyCell) {
+  for (let x = 0; x < GAME_WIDTH; x++) {
+    for (let y = 0; y < GAME_HEIGHT; y++) {
+      if (getAt(board, x, y) === EmptyCell) {
         return {x, y};
       }
     }

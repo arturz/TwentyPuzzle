@@ -1,8 +1,8 @@
-import { Board } from "../types/Board";
-import { createBoard } from "./createBoard";
+import {Board} from '../types/Board';
+import {createBoard} from './createBoard';
 
-const goal = JSON.stringify(createBoard());
+const goalBoard = createBoard().join('');
 
 export const checkForGoal = (board: Board) => {
-  return JSON.stringify(board) === goal;
-}
+  return board.join('') === goalBoard;
+};
