@@ -1,5 +1,5 @@
 export enum ScreenName {
-  Home = "Home screen",
-  Game = "Game",
-  HighScore = "High score"
+  Home = 'Main menu',
+  Game = 'Game',
+  HighScore = 'High score',
 }
