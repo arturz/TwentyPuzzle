@@ -1,10 +1,14 @@
 import styled from '@emotion/native';
 import React, {FC, memo, useEffect, useRef} from 'react';
 import {Animated, Easing, Image} from 'react-native';
-import {GAME_HEIGHT, GAME_WIDTH} from '../../../constants/Dimensions';
-import {EmptyCell} from '../../../constants/EmptyCell';
+import {
+  GAME_HEIGHT,
+  GAME_WIDTH,
+  SWIPE_ANIMATION_DURATION,
+} from '../../../constants/Dimensions';
 import {dogImage} from '../../../constants/Images';
 import {getCoordinatesFromCell} from '../../../utils/getCoordinatesFromCell';
+import {isEmptyCell} from '../../../utils/isEmptyCell';
 
 const CellContainer = styled(Animated.View)`
   position: absolute;
@@ -29,14 +33,14 @@ export const BoardCell: FC<BoardCellProps> = memo(({cell, size, x, y}) => {
 
   useEffect(() => {
     Animated.timing(animation, {
-      duration: 300,
+      duration: SWIPE_ANIMATION_DURATION,
       toValue: {x, y},
       easing: Easing.linear,
       useNativeDriver: true,
     }).start();
   }, [x, y, animation]);
 
-  if (cell === EmptyCell) {
+  if (isEmptyCell(cell)) {
     return null;
   }
 

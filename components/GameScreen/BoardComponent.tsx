@@ -44,7 +44,7 @@ export const BoardComponent: FC<BoardComponentProps> = ({board}) => {
           : {marginLeft: (size.width - GAME_WIDTH * cellSize) / 2}))}>
       {board.map((cell, index) => {
         const y = Math.floor(index / GAME_WIDTH);
-        const x = index % (GAME_HEIGHT - 1);
+        const x = index % GAME_WIDTH;
 
         return (
           <BoardCell

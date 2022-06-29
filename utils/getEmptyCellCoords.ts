@@ -1,20 +1,22 @@
 import {GAME_HEIGHT, GAME_WIDTH} from '../constants/Dimensions';
-import {EmptyCell} from '../constants/EmptyCell';
 import {Board} from '../types/Board';
 import {getAt} from './getAt';
+import {isEmptyCell} from './isEmptyCell';
 
-export const getEmptyCellCoords = (board: Board) => {
-  for (let x = 0; x < GAME_WIDTH; x++) {
-    for (let y = 0; y < GAME_HEIGHT; y++) {
-      if (getAt(board, x, y) === EmptyCell) {
+export const getEmptyCellCoords = (
+  board: Board,
+  width = GAME_WIDTH,
+  height = GAME_HEIGHT,
+) => {
+  for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y++) {
+      if (isEmptyCell(getAt(board, x, y), width, height)) {
         return {x, y};
       }
     }
   }
 
   throw new Error(
-    `Can't find empty cell (${EmptyCell}) in the board (${JSON.stringify(
-      board,
-    )})`,
+    `Can't find empty cell in the board (${JSON.stringify(board)})`,
   );
 };

@@ -1,15 +1,14 @@
 import {GAME_WIDTH} from '../constants/Dimensions';
-import {EmptyCell} from '../constants/EmptyCell';
 import {Board} from '../types/Board';
 
-export const moveDown = (board: Board) => {
-  const emptyCellIndex = board.findIndex(cell => cell === EmptyCell);
-  const replaceWithIndex = emptyCellIndex - GAME_WIDTH;
+export const moveDown = (board: Board, width = GAME_WIDTH) => {
+  const emptyCellIndex = board.findIndex(cell => cell === board.length - 1);
+  const replaceWithIndex = emptyCellIndex - width;
 
   if (replaceWithIndex >= 0) {
     const newBoard = [...board];
     newBoard[emptyCellIndex] = newBoard[replaceWithIndex];
-    newBoard[replaceWithIndex] = EmptyCell;
+    newBoard[replaceWithIndex] = board.length - 1;
     return newBoard;
   }
 

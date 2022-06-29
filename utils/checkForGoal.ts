@@ -1,8 +1,13 @@
+import {GAME_HEIGHT, GAME_WIDTH} from '../constants/Dimensions';
 import {Board} from '../types/Board';
 import {createBoard} from './createBoard';
 
-const goalBoard = createBoard().join('');
+export const checkForGoal = (
+  board: Board,
+  width = GAME_WIDTH,
+  height = GAME_HEIGHT,
+) => {
+  const goalBoard = createBoard(width, height);
 
-export const checkForGoal = (board: Board) => {
-  return board.join('') === goalBoard;
+  return board.join(',') === goalBoard.join(',');
 };

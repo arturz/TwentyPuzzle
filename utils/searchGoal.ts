@@ -5,41 +5,44 @@ import {checkForGoal} from './checkForGoal';
 import {getPossibleStates} from './getPossibleStates';
 import {heuristic} from '../lib/heuristic';
 import {Node} from '../types/Node';
+import {GAME_HEIGHT, GAME_WIDTH} from '../constants/Dimensions';
 
-const comparator = (a: Node, b: Node) => {
-  return a.priority - b.priority;
-};
-
-export const searchGoal = (start: Board) => {
+export const searchGoal = (
+  start: Board,
+  width = GAME_WIDTH,
+  height = GAME_HEIGHT,
+) => {
   const fringe = new TinyQueue<Node>(
     [
       {
-        priority: heuristic(start),
+        priority: heuristic(start, width, height),
         value: start,
       },
     ],
-    comparator,
+    (a: Node, b: Node) => a.priority - b.priority,
   );
-  let explored = Set();
+
+  let explored = Set<string>();
 
   while (fringe.length > 0) {
-    const currentNode = fringe.pop();
-    for (const board of getPossibleStates(currentNode.value)) {
-      if (explored.has(board)) {
+    const currentNode = fringe.pop() as Node;
+
+    for (const board of getPossibleStates(currentNode.value, width, height)) {
+      if (explored.has(board.join(','))) {
         continue;
       }
 
-      const node = {
-        priority: heuristic(board),
+      const node: Node = {
+        priority: heuristic(board, width, height),
         value: board,
         parent: currentNode,
       };
 
-      if (checkForGoal(board)) {
+      if (checkForGoal(board, width, height)) {
         return node;
       }
 
-      explored = explored.add(board);
+      explored = explored.add(board.join(','));
       fringe.push(node);
     }
   }

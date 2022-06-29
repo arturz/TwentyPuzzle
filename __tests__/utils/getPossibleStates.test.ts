@@ -1,45 +1,49 @@
-import {List} from 'immutable';
-import {EmptyCell} from '../../constants/EmptyCell';
-import {deepCopy} from '../../lib/deepCopy';
 import {getPossibleStates} from '../../utils/getPossibleStates';
 
 describe('getPossibleStates', () => {
-  it('works properly', () => {
-    // const a = [1, 2, 3];
-    // const b = [1, 2, 3];
-
-    // expect(a).toMatchObject(b);
-
-    // expect(a).toEqual(expect.arrayContaining(b));
-    // expect(a.length).toHaveLength(b.length);
-
-    expect(
-      deepCopy(getPossibleStates(List([List([0, 1]), List([2, EmptyCell])]))),
-    ).toMatchObject([
+  it('works properly with 2x2 board', () => {
+    const a = [
+      ...getPossibleStates(
+        [
+          [0, 1],
+          [2, 3],
+        ].flat(),
+        2,
+        2,
+      ),
+    ];
+    expect(a).toMatchObject([
       [
-        [0, EmptyCell],
+        [0, 3],
         [2, 1],
-      ],
+      ].flat(),
       [
         [0, 1],
-        [EmptyCell, 2],
-      ],
+        [3, 2],
+      ].flat(),
     ]);
+    expect(a.length).toEqual(2);
 
-    // expect([
-    //   ...getPossibleStates([
-    //     [1, 2, 3],
-    //     [4, 5],
-    //   ]),
-    // ]).toMatchObject([
-    //   [
-    //     [1, EmptyCell],
-    //     [3, 2],
-    //   ],
-    //   [
-    //     [1, 2],
-    //     [EmptyCell, 3],
-    //   ],
-    // ]);
+    const b = [
+      ...getPossibleStates(
+        [
+          [0, 3],
+          [2, 1],
+        ].flat(),
+        2,
+        2,
+      ),
+    ];
+    expect(b).toMatchObject([
+      [
+        [0, 1],
+        [2, 3],
+      ].flat(),
+      [
+        [3, 0],
+        [2, 1],
+      ].flat(),
+    ]);
+    expect(b.length).toEqual(2);
   });
 });

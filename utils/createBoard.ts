@@ -1,16 +1,11 @@
 import {GAME_HEIGHT, GAME_WIDTH} from '../constants/Dimensions';
-import {EmptyCell} from '../constants/EmptyCell';
 import {Board} from '../types/Board';
 
-export const createBoard = () => {
+export const createBoard = (width = GAME_WIDTH, height = GAME_HEIGHT) => {
   let board: Board = [];
 
-  for (let i = 0; i < GAME_WIDTH * GAME_HEIGHT; i++) {
-    if (i === GAME_WIDTH * GAME_HEIGHT - 1) {
-      board.push(EmptyCell);
-    } else {
-      board.push(i);
-    }
+  for (let i = 0; i < width * height; i++) {
+    board.push(i);
   }
 
   return board;

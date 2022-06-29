@@ -1,18 +1,16 @@
 import {GAME_WIDTH} from '../constants/Dimensions';
-import {EmptyCell} from '../constants/EmptyCell';
 import {Board} from '../types/Board';
 
-export const moveRight = (board: Board) => {
-  const emptyCellIndex = board.findIndex(cell => cell === EmptyCell);
+export const moveRight = (board: Board, width = GAME_WIDTH) => {
+  const emptyCellIndex = board.findIndex(cell => cell === board.length - 1);
   const replaceWithIndex = emptyCellIndex - 1;
 
   if (
-    Math.floor(emptyCellIndex / GAME_WIDTH) ===
-    Math.floor(replaceWithIndex / GAME_WIDTH)
+    Math.floor(emptyCellIndex / width) === Math.floor(replaceWithIndex / width)
   ) {
     const newBoard = [...board];
     newBoard[emptyCellIndex] = newBoard[replaceWithIndex];
-    newBoard[replaceWithIndex] = EmptyCell;
+    newBoard[replaceWithIndex] = board.length - 1;
     return newBoard;
   }
 
